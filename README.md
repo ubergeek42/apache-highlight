@@ -26,4 +26,4 @@ AddHandler highlight-code .java
 ```
 
 ## Sample Screenshot
-![Screenshot]()
+![Screenshot](https://raw.github.com/ubergeek42/apache-highlight/master/screenshot.png)
