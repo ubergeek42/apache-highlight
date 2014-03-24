@@ -1,6 +1,7 @@
 <?php
-// What Ace theme to use
-$theme = 'tomorrow';
+// Options
+$theme = 'tomorrow'; // What ace theme to use
+$fontsize = '12px';  // Default font size to display
 
 /**
 Your .htaccess file should look something like this(You will need mod_actions enabled)
@@ -19,6 +20,9 @@ Your .htaccess file should look something like this(You will need mod_actions en
 	AddHandler highlight-code .java
 */
 
+
+//====================================================================================
+// No need to edit below this point
 
 // Get the file we want to show(PATH_TRANSLATED comes from apache's Action/AddHandler)
 $filename = $_SERVER['PATH_TRANSLATED'];
@@ -51,6 +55,7 @@ if (isset($_GET['raw'])) {
 			margin: auto;
 			height: 200px;
 			width: 100%;
+			font-size: <?=$fontsize?>;
 		}
 		.container {
 			position:relative;
