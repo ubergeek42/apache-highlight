@@ -39,6 +39,12 @@ if (isset($_GET['raw'])) {
     exit();
 }
 
+$error = FALSE;
+$filecontents = file_get_contents($filename);
+if ($filecontents === FALSE) {
+	$error = "Error loading file.";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,12 +71,16 @@ if (isset($_GET['raw'])) {
             margin-bottom: 10px;
             margin-top: 10px;
         }
-        #header h1 {
-            display: inline;
+        #header div {
+			float:left;
+			height: 50px;
         }
-        #header a {
-            margin-left: 20px;
-        }
+		#header .title h1 {
+			margin: 0px;
+		}
+		#header .info {
+			margin-left: 20px;
+		}
         #footer {
             margin-top: 25px;
             margin-bottom: 15px;
@@ -86,11 +96,18 @@ if (isset($_GET['raw'])) {
 <body>
 <div class="container">
     <div id="header" class="row">
-        <h1><?=basename($filename)?></h1>
-        <a href="?raw">Download/View Raw File</a>
+		<div class="title"><h1><?=basename($filename)?></h1></div>
+		<div class="info">
+        <a href="?raw">Download/View Raw File</a><br>
+		Filetype: <span id="filetype">Unknown</span>
+		</div>
     </div>
     <div class="row">
-        <pre id="editor"><?php echo htmlspecialchars(file_get_contents($filename)); ?></pre>
+	<?php if (!$error): ?>
+        <pre id="editor"><?php echo htmlspecialchars($filecontents); ?></pre>
+	<?php else: ?>
+		<pre class="error"><?=$error?></pre>
+	<?php endif ?>
     </div>
     <div class="row">
     <p id="footer">
@@ -101,6 +118,7 @@ if (isset($_GET['raw'])) {
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ext-modelist.js" type="text/javascript" charset="utf-8"></script>
+<?php if (!$error): ?>
 <script>
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/<?=$theme?>");
@@ -115,8 +133,10 @@ if (isset($_GET['raw'])) {
 
     // Autodetect mode based on file name
     var modelist = ace.require('ace/ext/modelist');
-    var mode = modelist.getModeForPath("<?=basename($filename)?>").mode;
-    editor.getSession().setMode(mode);
+    var mode = modelist.getModeForPath("<?=basename($filename)?>");
+    editor.getSession().setMode(mode.mode);
+	document.getElementById("filetype").innerHTML = mode.caption;
 </script>
+<?php endif;?>
 </body>
 </html>
