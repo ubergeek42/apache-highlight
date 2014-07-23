@@ -23,6 +23,13 @@ Your .htaccess file should look something like this(You will need mod_actions en
     AddHandler highlight-code .java
 */
 
+
+// Set the domain root
+//      eg. You placed your script here: example.com/scripts/highlight.php
+//          $root = '../' to go up one level.
+$root = '../';
+
+
 // Any custom css you want applied goes here:
 $custom_css = "
     /* style applied to line numbers in the gutter */
@@ -40,8 +47,8 @@ $custom_css = "
 //====================================================================================
 // No need to edit below this point
 
-// Get the file we want to show(PATH_TRANSLATED comes from apache's Action/AddHandler)
-$filename = $_SERVER['PATH_TRANSLATED'];
+// Get the file we want to show
+$filename = $_SERVER['REQUEST_URI'];
 
 // Default to showing ourself if there is no argument
 if ($filename == '') {
@@ -56,7 +63,7 @@ if (isset($_GET['raw'])) {
 }
 
 $error = FALSE;
-$filecontents = file_get_contents($filename);
+$filecontents = file_get_contents($root . $filename);
 if ($filecontents === FALSE) {
 	$error = "Error loading file.";
 }
