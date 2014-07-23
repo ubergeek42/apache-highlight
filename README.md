@@ -27,3 +27,8 @@ AddHandler highlight-code .java
 
 ## Sample Screenshot
 ![Screenshot](https://raw.github.com/ubergeek42/apache-highlight/master/screenshot.png)
+
+
+## Notes/Issues
+
+Some users have had trouble with the PATH_TRANSLATED variable not working properly for them.  Please refer to Pull Request #1 for an alternative method which requires a little bit more effort but should work.
