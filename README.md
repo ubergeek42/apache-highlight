@@ -32,7 +32,7 @@ AddHandler highlight-code .java
 ## Notes/Issues
 
 **Q.** `PATH_TRANSLATED` isn't working for me.  
-**A.** Please refer to [Pull Request #1](pull/1) for an alternative method which requires a little bit more effort but should work.
+**A.** Please refer to [Pull Request #1](http://github.com/ubergeek42/apache-highlight/pull/1) for an alternative method which requires a little bit more effort but should work.
 
 
 **Q.** I get a 404 error with the message `The requested URL /scripts/highlight.php/some/path/myfile.java was not found on this server`.  
